@@ -11,4 +11,4 @@ d.down:
 	docker compose down
 
 d.up.build:
-	docker compose --build up
+	docker compose build
