@@ -3,6 +3,7 @@ package products
 import (
 	"github.com/gofiber/fiber/v2"
 	"go-fiber-api-docker/pkg/common/models"
+	"go-fiber-api-docker/pkg/common/utils"
 )
 
 type UpdateProductRequestBody struct {
@@ -16,12 +17,14 @@ func (h handler) UpdateProduct(c *fiber.Ctx) error {
 	body := UpdateProductRequestBody{}
 
 	if err := c.BodyParser(&body); err != nil {
+		utils.Logger.Error(err.Error())
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 
 	var product models.Product
 
 	if result := h.DB.First(&product, id); result.Error != nil {
+		utils.Logger.Error(result.Error.Error())
 		return fiber.NewError(fiber.StatusNotFound, result.Error.Error())
 	}
 

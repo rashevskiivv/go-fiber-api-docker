@@ -1,6 +1,9 @@
 package config
 
-import "github.com/spf13/viper"
+import (
+	"github.com/spf13/viper"
+	"go-fiber-api-docker/pkg/common/utils"
+)
 
 type Config struct {
 	Port   string `mapstructure:"PORT"`
@@ -12,6 +15,11 @@ type Config struct {
 }
 
 func LoadConfig() (c Config, err error) {
+	defer func() {
+		if err == nil {
+			utils.Logger.Info("Config loaded successfully")
+		}
+	}()
 	viper.AddConfigPath("./")
 	viper.SetConfigName(".env")
 	viper.SetConfigType("env")

@@ -2,6 +2,7 @@ package products
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"go-fiber-api-docker/pkg/common/utils"
 	"gorm.io/gorm"
 )
 
@@ -21,4 +22,6 @@ func RegisterRoutes(app *fiber.App, db *gorm.DB) {
 	routes.Get("/:id", h.GetProduct)
 	routes.Put("/:id", h.UpdateProduct)
 	routes.Delete("/:id", h.DeleteProduct)
+
+	utils.Logger.Info("Routes registered successfully")
 }
